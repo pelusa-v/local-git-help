@@ -1,7 +1,7 @@
 package main
 
-import "fmt"
+import "github.com/pelusa-v/local-git-help.git/internal/menu"
 
 func main() {
-	fmt.Printf("%s", "Hiiiiiii")
+	menu.MenuPrinter()
 }
