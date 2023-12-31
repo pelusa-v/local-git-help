@@ -1,6 +1,8 @@
 package menu
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func clearScreen(lines int) {
 	const escape = "\033"

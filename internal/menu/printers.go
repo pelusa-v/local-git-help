@@ -2,6 +2,8 @@ package menu
 
 import (
 	"fmt"
+
+	"github.com/pelusa-v/local-git-help.git/internal/config"
 )
 
 type Printer interface {
@@ -16,7 +18,7 @@ type MenuOption struct {
 
 type MenuPrinter struct {
 	SelectedOption int
-	Options        []string
+	Options        []config.LocalGitUser
 }
 
 func (menuPrinter *MenuPrinter) show() {
@@ -24,9 +26,9 @@ func (menuPrinter *MenuPrinter) show() {
 	fmt.Println("Select local github user to use (↑ or ↓), 'q' or 'Q' for exit")
 	for i := 0; i < len(menuPrinter.Options); i++ {
 		if i == menuPrinter.SelectedOption {
-			fmt.Printf("%d) %s   <--------\n", i+1, menuPrinter.Options[i])
+			fmt.Printf("%d) %s   <--------\n", i+1, menuPrinter.Options[i].GetSummary())
 		} else {
-			fmt.Printf("%d) %s\n", i+1, menuPrinter.Options[i])
+			fmt.Printf("%d) %s\n", i+1, menuPrinter.Options[i].GetSummary())
 		}
 	}
 }
