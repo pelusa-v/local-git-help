@@ -1,7 +1,6 @@
 package menu
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/eiannone/keyboard"
@@ -9,28 +8,41 @@ import (
 )
 
 type Menu struct {
-	MenuPrinter  Printer
-	ErrorPrinter Printer
+	MenuPrinter  *MenuPrinter
+	ErrorPrinter *ErrorPrinter
+}
+
+func (menu *Menu) ValidateConfiguration() bool {
+	if !config.FileExists(config.GetLocalConfigPath()) {
+		menu.ErrorPrinter.Content = "Local configuration file doesn't exist"
+		menu.ErrorPrinter.show()
+		return false
+	}
+
+	return true
+}
+
+func (menu *Menu) LoadDefaultMenuOptions() {
+	menu.MenuPrinter.Options = make([]string, 0)
+	menu.MenuPrinter.SelectedOption = 0
+	config := config.LoadLocalGitData()
+	configValues := (*config)
+	for i := 0; i < len(configValues); i++ {
+		menu.MenuPrinter.Options = append(menu.MenuPrinter.Options, configValues[i].GetSummary())
+	}
 }
 
 func (menu *Menu) Run() {
-
-	config := config.LoadLocalGitData()
-	fmt.Println(config)
 
 	err := keyboard.Open()
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	defer func() {
 		_ = keyboard.Close()
 	}()
 
-	option := 1
-	limit := 7
 	menu.MenuPrinter.show()
-	// showMenu(option, limit)
 
 	for {
 		keyValue, key, err := keyboard.GetKey()
@@ -38,14 +50,14 @@ func (menu *Menu) Run() {
 			log.Fatal(err)
 		}
 
-		if key == keyboard.KeyArrowDown && option < limit-1 {
-			option++
-		} else if key == keyboard.KeyArrowUp && option > 1 {
-			option--
+		if key == keyboard.KeyArrowDown && menu.MenuPrinter.SelectedOption < len(menu.MenuPrinter.Options)-1 {
+			menu.MenuPrinter.SelectedOption++
+		} else if key == keyboard.KeyArrowUp && menu.MenuPrinter.SelectedOption > 0 {
+			menu.MenuPrinter.SelectedOption--
 		} else if key == keyboard.KeyCtrlC || key == keyboard.KeyCtrlD || keyValue == 'Q' || keyValue == 'q' {
 			break
 		}
+
 		menu.MenuPrinter.show()
-		// showMenu(option, limit)
 	}
 }

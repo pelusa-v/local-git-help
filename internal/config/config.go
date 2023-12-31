@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 	"os/user"
@@ -12,6 +13,10 @@ type LocalGitUser struct {
 	UserEmail string `json:"user_email"`
 	UserName  string `json:"user_name"`
 	Tag       string `json:"tag"`
+}
+
+func (localGitUser *LocalGitUser) GetSummary() string {
+	return fmt.Sprintf("%s / %s (%s)", localGitUser.UserEmail, localGitUser.UserName, localGitUser.Tag)
 }
 
 func LoadLocalGitData() *[]LocalGitUser {
