@@ -1,7 +1,7 @@
 # Local Git help
 Tool to change local git account easily
 ## Configure local environment:
-- Create a configuration file in "~" path:
+- Create a configuration file in "~" path with your git accounts:
 
 ```json
 [
