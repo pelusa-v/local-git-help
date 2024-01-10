@@ -20,9 +20,6 @@ Tool to change local git account easily
         "user_name": "sample-user-3",
         "tag": "Bitucket Work"
     }
-    .
-    .
-    .
 ]
 ```
 
