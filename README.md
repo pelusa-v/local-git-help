@@ -1,5 +1,5 @@
 # Local Git help
-Tool to change local git account easily
+Tool to select local git account easily when you manage multiple accounts.
 ## Configure local environment:
 - Create a configuration file in "~" path with your git accounts:
 
@@ -18,8 +18,9 @@ Tool to change local git account easily
     {
         "user_email": "email2@sample2.com",
         "user_name": "sample-user-3",
-        "tag": "Bitucket Work"
-    }
+        "tag": "Bitbucket Work"
+    },
+    ...
 ]
 ```
 
@@ -31,5 +32,5 @@ Tool to change local git account easily
 Select local github user to use (↑ or ↓), 'q' or 'Q' for exit
 1) email1@sample1.com / sample-user-1 (Github Personal)
 2) email2@sample2.com / sample-user-2 (Github Work)   <--------
-3) email2@sample2.com / sample-user-3 (Bitucket Work)
+3) email2@sample2.com / sample-user-3 (Bitbucket Work)
 ```
